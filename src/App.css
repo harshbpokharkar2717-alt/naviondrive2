@@ -1,0 +1,1244 @@
+/* =========================================================
+   NAVIONDRIVE
+   FULL SCREEN SIH DASHBOARD
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  background: #060b14;
+  color: #d9e5f2;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+select {
+  font-family: inherit;
+}
+
+.app {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+  background:
+    radial-gradient(circle at 20% 20%,
+      rgba(25, 75, 115, 0.12),
+      transparent 35%),
+    #060b14;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.topbar {
+  width: 100%;
+  height: 68px;
+
+  padding: 9px 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #09111d;
+  border-bottom: 1px solid #1a293b;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  min-width: 0;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: #304b83;
+
+  color: #dce7ff;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.brand h1 {
+  margin: 0;
+
+  font-size: clamp(14px, 1.1vw, 18px);
+
+  letter-spacing: 0.2px;
+
+  white-space: nowrap;
+}
+
+.brand p {
+  margin: 4px 0 0;
+
+  color: #64778f;
+
+  font-size: 9px;
+
+  white-space: nowrap;
+}
+
+.prototype {
+  margin-left: 8px;
+
+  padding: 4px 7px;
+
+  border-radius: 5px;
+
+  background: #142747;
+
+  color: #6d8bc5;
+
+  font-size: 8px;
+
+  font-weight: bold;
+
+  white-space: nowrap;
+}
+
+.top-status {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+}
+
+.top-status span,
+.top-status button {
+  padding: 7px 9px;
+
+  border: 1px solid #1d2b3e;
+  border-radius: 6px;
+
+  background: #0e1929;
+
+  color: #73869e;
+
+  font-size: 8px;
+
+  white-space: nowrap;
+}
+
+.top-status span:first-child {
+  color: #50c8a8;
+}
+
+.top-status button {
+  color: #a189dd;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   MAIN DASHBOARD
+   ========================================================= */
+
+.dashboard {
+  width: 100%;
+
+  height: calc(100vh - 68px);
+
+  padding: 10px;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 7fr) minmax(300px, 3fr);
+
+  gap: 10px;
+}
+
+
+/* =========================================================
+   COLUMNS
+   ========================================================= */
+
+.left-column,
+.right-column {
+  min-width: 0;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.left-column {
+  overflow: hidden;
+}
+
+.right-column {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+
+/* =========================================================
+   PANELS
+   ========================================================= */
+
+.panel {
+  background: #0c1625;
+
+  border: 1px solid #1a293c;
+
+  border-radius: 8px;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.18);
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   SIMULATION
+   ========================================================= */
+
+.simulation-panel {
+  flex: 1;
+
+  min-height: 0;
+}
+
+.panel-header {
+  height: 34px;
+
+  padding: 0 11px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #0f1a2b;
+
+  border-bottom: 1px solid #1a293c;
+
+  color: #75889f;
+
+  font-size: 8px;
+}
+
+.panel-header span:first-child {
+  color: #8b9db3;
+}
+
+
+.simulation {
+  position: relative;
+
+  width: 100%;
+
+  height: calc(100% - 34px);
+
+  min-height: 420px;
+
+  background: #08101c;
+}
+
+
+.road {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.018) 12%,
+      transparent 12.3%,
+      transparent 87.7%,
+      rgba(255, 255, 255, 0.018) 88%,
+      transparent 100%),
+    #111c2b;
+}
+
+
+/* ROAD BOUNDARIES */
+
+.road::before,
+.road::after {
+  content: "";
+
+  position: absolute;
+
+  left: 5%;
+  right: 5%;
+
+  height: 2px;
+
+  background: #34465c;
+
+  z-index: 2;
+}
+
+.road::before {
+  top: 10%;
+}
+
+.road::after {
+  bottom: 8%;
+}
+
+
+/* =========================================================
+   LANES
+   ========================================================= */
+
+.road-line {
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+
+  width: 2px;
+
+  opacity: 0.55;
+
+  background:
+    repeating-linear-gradient(to bottom,
+      #aab5c4 0px,
+      #aab5c4 28px,
+      transparent 28px,
+      transparent 58px);
+}
+
+.line-1 {
+  left: 33.33%;
+}
+
+.line-2 {
+  left: 66.66%;
+}
+
+
+/* =========================================================
+   VEHICLE SYSTEM
+
+   THIS IS THE IMPORTANT PART.
+
+   The car + radar + ultrasonic sensor + origin
+   all share ONE parent coordinate system.
+   ========================================================= */
+
+.vehicle-system {
+  position: absolute;
+
+  /*
+     Vehicle location
+  */
+
+  left: 17%;
+
+  top: 62%;
+
+  width: 130px;
+  height: 90px;
+
+  z-index: 10;
+}
+
+
+/* =========================================================
+   RADAR / LIDAR CONE
+   ========================================================= */
+
+.sensor-cone {
+  position: absolute;
+
+  left: 45px;
+  top: -125px;
+
+  width: 420px;
+  height: 250px;
+
+  background:
+    linear-gradient(90deg,
+      rgba(34, 151, 210, 0.26),
+      rgba(34, 151, 210, 0.10),
+      rgba(34, 151, 210, 0));
+
+  clip-path:
+    polygon(0% 50%,
+      100% 0%,
+      100% 100%);
+
+  z-index: 1;
+
+  pointer-events: none;
+}
+
+
+/* RADAR EDGE */
+
+.sensor-cone::before {
+  content: "";
+
+  position: absolute;
+
+  left: 35px;
+  top: 50%;
+
+  width: 360px;
+  height: 1px;
+
+  background: rgba(54, 185, 231, 0.35);
+
+  transform: rotate(-17deg);
+
+  transform-origin: left center;
+}
+
+.sensor-cone::after {
+  content: "";
+
+  position: absolute;
+
+  left: 35px;
+  top: 50%;
+
+  width: 360px;
+  height: 1px;
+
+  background: rgba(54, 185, 231, 0.35);
+
+  transform: rotate(17deg);
+
+  transform-origin: left center;
+}
+
+
+/* =========================================================
+   ULTRASONIC FIELD
+   ========================================================= */
+
+.ultrasonic-field {
+  position: absolute;
+
+  left: 55px;
+  top: 27px;
+
+  width: 110px;
+  height: 36px;
+
+  border-top: 1px solid rgba(64, 218, 191, 0.25);
+  border-bottom: 1px solid rgba(64, 218, 191, 0.25);
+
+  border-radius: 50%;
+
+  z-index: 2;
+}
+
+
+/* =========================================================
+   OUR CAR
+   ========================================================= */
+
+.our-car {
+  position: absolute;
+
+  left: 0;
+  top: 28px;
+
+  width: 58px;
+  height: 30px;
+
+  border-radius: 7px;
+
+  background: #128db7;
+
+  border: 1px solid #39c6e7;
+
+  box-shadow:
+    0 0 18px rgba(30, 192, 232, 0.45);
+
+  z-index: 5;
+}
+
+
+/* CAR FRONT */
+
+.our-car::after {
+  content: "";
+
+  position: absolute;
+
+  right: -5px;
+  top: 9px;
+
+  width: 7px;
+  height: 12px;
+
+  border-radius: 2px;
+
+  background: #5be1f0;
+}
+
+
+/* CAR WINDOW */
+
+.car-window {
+  position: absolute;
+
+  left: 17px;
+  top: 5px;
+
+  width: 24px;
+  height: 10px;
+
+  border-radius: 3px;
+
+  background: #83dced;
+}
+
+
+/* WHEELS */
+
+.car-wheel {
+  position: absolute;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #050a11;
+}
+
+.wheel-1 {
+  left: 7px;
+  bottom: -4px;
+}
+
+.wheel-2 {
+  right: 7px;
+  bottom: -4px;
+}
+
+
+/* =========================================================
+   SENSOR ORIGIN
+   ========================================================= */
+
+.sensor-origin {
+  position: absolute;
+
+  left: 53px;
+  top: 42px;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #39e6c0;
+
+  box-shadow:
+    0 0 12px #39e6c0;
+
+  z-index: 8;
+}
+
+
+/* =========================================================
+   VEHICLE LABEL
+   ========================================================= */
+
+.vehicle-label {
+  position: absolute;
+
+  left: -5px;
+  top: 64px;
+
+  padding: 3px 5px;
+
+  border-radius: 3px;
+
+  background: rgba(6, 14, 25, 0.8);
+
+  color: #6d8aa5;
+
+  font-size: 6px;
+
+  white-space: nowrap;
+
+  z-index: 9;
+}
+
+
+/* =========================================================
+   PLANNED PATH
+
+   SVG coordinates are now aligned with the vehicle.
+   ========================================================= */
+
+.path-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 7;
+
+  pointer-events: none;
+
+  overflow: visible;
+}
+
+
+.planned-path-glow {
+  fill: none;
+
+  stroke: rgba(26, 224, 175, 0.25);
+
+  stroke-width: 12;
+
+  stroke-linecap: round;
+
+  filter: blur(5px);
+}
+
+
+.planned-path {
+  fill: none;
+
+  stroke: #20d6a3;
+
+  stroke-width: 4;
+
+  stroke-linecap: round;
+
+  filter:
+    drop-shadow(0 0 5px rgba(32, 214, 163, 0.7));
+}
+
+
+/* =========================================================
+   DETECTED OBJECTS
+   ========================================================= */
+
+.detected-object {
+  position: absolute;
+
+  z-index: 8;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 2px;
+}
+
+.detected-object .object-icon {
+  font-size: 20px;
+}
+
+.detected-object span {
+  padding: 2px 4px;
+
+  border-radius: 3px;
+
+  background: rgba(5, 12, 22, 0.85);
+
+  color: #70849d;
+
+  font-size: 5px;
+}
+
+
+/* OTHER CAR */
+
+.other-car {
+  left: 43%;
+  top: 31%;
+}
+
+
+/* PEDESTRIAN */
+
+.pedestrian {
+  left: 54%;
+  top: 38%;
+}
+
+
+/* OBSTACLE */
+
+.obstacle {
+  left: 67%;
+  top: 43%;
+}
+
+
+/* BIKE */
+
+.bicycle {
+  left: 54%;
+  top: 58%;
+}
+
+
+/* =========================================================
+   DESTINATION
+   ========================================================= */
+
+.destination {
+  position: absolute;
+
+  right: 6%;
+
+  top: 48%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 3px;
+
+  z-index: 8;
+}
+
+.destination-ring {
+  color: #2bd4a8;
+
+  font-size: 30px;
+
+  line-height: 1;
+
+  text-shadow:
+    0 0 15px rgba(43, 212, 168, 0.7);
+}
+
+.destination span {
+  color: #4b8e83;
+
+  font-size: 6px;
+}
+
+
+/* =========================================================
+   DISTANCE MARKERS
+   ========================================================= */
+
+.distance-marker {
+  position: absolute;
+
+  padding: 3px 5px;
+
+  border-radius: 3px;
+
+  background: rgba(6, 15, 27, 0.9);
+
+  border: 1px solid #21415a;
+
+  color: #4e93b0;
+
+  font-size: 6px;
+
+  z-index: 9;
+}
+
+.marker-1 {
+  left: 53%;
+  top: 27%;
+}
+
+.marker-2 {
+  left: 62%;
+  top: 39%;
+}
+
+
+/* =========================================================
+   CONTROLS
+   ========================================================= */
+
+.controls {
+  flex: 0 0 43px;
+
+  padding: 6px 9px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+}
+
+.controls button,
+.incursions button {
+  padding: 6px 9px;
+
+  border: 1px solid #26364b;
+
+  border-radius: 5px;
+
+  background: #101d2e;
+
+  color: #74879f;
+
+  font-size: 8px;
+
+  cursor: pointer;
+}
+
+.controls .start-btn {
+  background: #087a64;
+
+  border-color: #13a98d;
+
+  color: #c1fff1;
+}
+
+.controls .active {
+  background: #203b73;
+
+  color: #b8cbff;
+}
+
+.scenario-select {
+  margin-left: auto;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  color: #667990;
+
+  font-size: 8px;
+}
+
+.scenario-select select {
+  padding: 6px 8px;
+
+  border: 1px solid #26364b;
+
+  border-radius: 5px;
+
+  background: #101d2e;
+
+  color: #8495aa;
+
+  font-size: 8px;
+}
+
+
+/* =========================================================
+   INCURSIONS
+   ========================================================= */
+
+.incursions {
+  flex: 0 0 40px;
+
+  padding: 6px 9px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+}
+
+.incursions>span {
+  color: #60738a;
+
+  font-size: 8px;
+}
+
+.incursions .danger {
+  color: #ef7d86;
+
+  border-color: #59323c;
+}
+
+
+/* =========================================================
+   PATHS
+   ========================================================= */
+
+.paths {
+  flex: 0 0 120px;
+
+  padding: 9px;
+}
+
+.paths-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 7px;
+
+  color: #6e8098;
+
+  font-size: 8px;
+}
+
+.safe {
+  color: #4cc7a7;
+}
+
+.path-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 6px;
+}
+
+.path-card {
+  min-width: 0;
+
+  padding: 7px;
+
+  border: 1px solid #24354b;
+
+  border-radius: 6px;
+
+  background: #101c2d;
+}
+
+.path-card.selected {
+  border-color: #1db99a;
+
+  background: #102c2d;
+}
+
+.path-card small {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #8294aa;
+
+  font-size: 7px;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+.path-card strong {
+  display: block;
+
+  color: #42c6a7;
+
+  font-size: 7px;
+}
+
+.path-card p {
+  margin: 4px 0 0;
+
+  color: #566a82;
+
+  font-size: 6px;
+}
+
+
+/* =========================================================
+   RIGHT SIDE
+   ========================================================= */
+
+.right-column .panel {
+  padding: 10px;
+
+  flex-shrink: 0;
+}
+
+.panel-title {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 8px;
+
+  color: #74869d;
+
+  font-size: 8px;
+
+  letter-spacing: 0.4px;
+}
+
+.low-risk {
+  padding: 3px 6px;
+
+  border-radius: 8px;
+
+  background: #12352f;
+
+  border: 1px solid #176052;
+
+  color: #4bd0aa;
+
+  font-size: 6px;
+}
+
+
+/* =========================================================
+   METRICS
+   ========================================================= */
+
+.metric-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 5px;
+}
+
+.metric-grid.four {
+  grid-template-columns:
+    repeat(4, 1fr);
+}
+
+.metric-grid>div {
+  min-height: 52px;
+
+  padding: 7px;
+
+  border: 1px solid #1c2c42;
+
+  border-radius: 6px;
+
+  background: #101d2e;
+
+  text-align: center;
+}
+
+.metric-grid small {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #596c83;
+
+  font-size: 6px;
+}
+
+.metric-grid strong {
+  color: #c8d5e5;
+
+  font-size: 13px;
+}
+
+.red {
+  color: #dc6c78 !important;
+}
+
+.purple {
+  color: #9d7dd5 !important;
+}
+
+.green {
+  color: #2ed1a7 !important;
+}
+
+
+/* =========================================================
+   CRITICAL THREAT
+   ========================================================= */
+
+.critical {
+  margin-top: 6px;
+
+  padding: 8px;
+
+  border-radius: 6px;
+
+  background: #172335;
+
+  color: #63768d;
+
+  font-size: 7px;
+}
+
+.critical span {
+  float: right;
+
+  color: #d4c65f;
+}
+
+
+/* =========================================================
+   XAI
+   ========================================================= */
+
+.question {
+  margin: 10px 0 7px;
+
+  color: #7689a1;
+
+  font-size: 7px;
+}
+
+.reason {
+  margin-bottom: 5px;
+
+  padding: 7px;
+
+  border-radius: 5px;
+
+  background: #101d2f;
+
+  color: #70839a;
+
+  font-size: 7px;
+}
+
+.decision {
+  margin-top: 7px;
+
+  padding: 8px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 7px;
+
+  border: 1px solid #673bb0;
+
+  border-radius: 6px;
+
+  background: #28165a;
+
+  font-size: 6px;
+}
+
+.decision span {
+  color: #a18dc8;
+}
+
+.decision strong {
+  color: #b898ef;
+}
+
+
+/* =========================================================
+   EVENT STREAM
+   ========================================================= */
+
+.event-stream {
+  min-height: 150px;
+}
+
+.event-stream p {
+  margin: 5px 0;
+
+  padding: 6px;
+
+  border-radius: 4px;
+
+  background: #101c2c;
+
+  color: #5f7289;
+
+  font-family: monospace;
+
+  font-size: 6px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .dashboard {
+    grid-template-columns:
+      65fr 35fr;
+  }
+
+  .top-status span {
+    display: none;
+  }
+
+  .path-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+}
+
+
+@media (max-width: 800px) {
+
+  body {
+    overflow: auto;
+  }
+
+  .app {
+    height: auto;
+
+    min-height: 100vh;
+  }
+
+  .dashboard {
+    height: auto;
+
+    grid-template-columns: 1fr;
+  }
+
+  .right-column {
+    overflow: visible;
+  }
+
+  .simulation {
+    height: 500px;
+  }
+
+  .top-status {
+    display: none;
+  }
+
+}
